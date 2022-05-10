@@ -1,0 +1,20 @@
+<network>
+	<name>networkC</name>
+	<uuid>856f7d42-cf38-11ec-9d64-0242ac120002</uuid>
+	<forward mode='nat' />
+	<bridge name='bridgeC' stp='on' delay='0'/>
+	<mac address='82:86:bd:3d:63:8c'/>
+	<ip address='10.10.152.0' netmask='255.255.255.0'>
+		<dhcp>
+			<range start='10.10.152.50' end ='10.10.152.200' />
+			<!--building-->
+			<host mac='52:54:00:c1:2f:d0' ip='10.10.152.1'/>
+			<!--building-->
+			<host mac='7a:a6:58:7c:b2:8f' ip='10.10.152.7' />
+			<host mac='c2:6b:3f:4e:da:bb' ip='10.10.152.8' />
+			<host mac='06:76:a0:eb:07:c1' ip='10.10.152.9' />
+			<host mac='66:f3:1e:f8:d8:e9' ip='10.10.152.10' />
+			<host mac='5a:1f:1e:68:cc:30' ip='10.10.152.11' />
+		</dhcp>
+	</ip>
+</network>

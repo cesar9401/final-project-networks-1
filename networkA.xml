@@ -1,0 +1,18 @@
+<network>
+	<name>networkA</name>
+	<uuid>c7d5df2c-cf11-11ec-9d64-0242ac120002</uuid>
+	<forward mode='nat' />
+	<bridge name='bridgeA' stp='on' delay='0'/>
+	<mac address='ca:b8:02:8c:19:03'/>
+	<ip address='10.10.150.0' netmask='255.255.255.0'>
+		<dhcp>
+			<range start='10.10.150.50' end ='10.10.150.200' />
+			<!--building-->
+			<host mac='52:54:00:f2:9d:33' ip='10.10.150.1' />
+			<!--building-->
+			<host mac='6e:12:39:bc:a7:4e' ip='10.10.150.2' />
+			<host mac='e6:27:e4:dd:ee:6f' ip='10.10.150.3' />
+			<host mac='f6:af:ec:fa:87:70' ip='10.10.150.4' />
+		</dhcp>
+	</ip>
+</network>
