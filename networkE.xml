@@ -13,6 +13,7 @@
 			<host mac='6e:fa:b1:28:c9:08' ip='10.10.153.12' />
 			<host mac='fe:c1:c2:50:c8:6c' ip='10.10.153.13' />
 			<host mac='d6:5f:02:3f:3a:2a' ip='10.10.153.14' />
+			<host mac='36:4f:0c:f3:01:94' ip='10.10.153.20' />
 		</dhcp>
 	</ip>
 </network>

@@ -12,6 +12,7 @@
 			<!--building-->
 			<host mac='66:da:da:91:ae:d7' ip='10.10.151.5' />
 			<host mac='72:e6:ff:3f:90:c4' ip='10.10.151.6' />
+			<host mac='26:10:11:59:5e:c1' ip='10.10.151.18' />
 		</dhcp>
 	</ip>
 </network>
