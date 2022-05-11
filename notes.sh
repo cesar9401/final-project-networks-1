@@ -195,3 +195,24 @@ sudo ip route add 10.10.154.0/24 via 200.200.202.2 dev enp7s0
 sudo ip route add 10.10.154.0/24 via 200.200.204.2 dev enp7s0
 # on D
 # ------------- D
+
+
+
+iptables -A FORWARD -i ens10 -s 10.10.3.2 -d 10.10.5.2 -j ACCEPT
+iptables -A FORWARD -i ens10 -j DROP
+
+ i -> intefaz edificio
+-s ip de salida
+-d ip destino
+
+
+interface="enp7s0"
+sudo iptables -A FORWARD -i enp7s0 -s 10.10.150.2 -d 10.10.151.5 -j ACCEPT
+sudo iptables -A FORWARD -i enp7s0 -s 10.10.150.3 -d 10.10.151.5 -j ACCEPT
+sudo iptables -A FORWARD -i enp7s0 -s 10.10.150.4 -d 10.10.151.5 -j ACCEPT
+sudo iptables -A FORWARD -i enp7s0 -j DROP
+
+
+
+
+
