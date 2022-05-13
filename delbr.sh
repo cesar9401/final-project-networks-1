@@ -44,6 +44,8 @@ sleep 0.1
 # sudo brctl delbr brE
 
 echo "Deleting bridges to each building"
+sudo virsh net-destroy default
+sleep 0.1
 sudo virsh net-destroy networkA
 sleep 0.1
 sudo virsh net-destroy networkB

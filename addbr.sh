@@ -53,6 +53,8 @@ sleep 0.1
 # sudo ip link set brE up
 
 echo "Upping bridges to each building"
+sudo virsh net-start default
+sleep 0.1
 sudo virsh net-start networkA
 sleep 0.1
 sudo virsh net-start networkB

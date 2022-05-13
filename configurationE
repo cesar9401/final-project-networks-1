@@ -1,0 +1,60 @@
+#!/bin/bash
+# move me to /etc/network/if-up.d
+
+if [ $IFACE = "enp1s0" ]
+then
+	sleep 5
+	# buildings
+	sudo ip route add 200.200.201.0/30 via 200.200.202.1 dev enp1s0
+	sudo ip route add 200.200.200.0/30 via 200.200.202.1 dev enp1s0
+	# 10.10.150.0/24
+	sudo ip route add 10.10.150.0/24 via 200.200.202.1 dev enp1s0
+	# 10.10.151.0/24
+	sudo ip route add 10.10.151.0/24 via 200.200.202.1 dev enp1s0
+	# 10.10.152.0/24
+	sudo ip route add 10.10.152.0/24 via 200.200.202.1 dev enp1s0
+fi
+
+if [ $IFACE = "enp7s0" ]
+then
+	sleep 5
+	# 10.10.154.0/24
+	sudo ip route add 10.10.154.0/24 via 200.200.204.2 dev enp7s0
+fi
+
+if [ $IFACE = "enp8s0" ]
+then
+	sleep 5
+	sudo iptables -F
+	sleep 0.5
+
+	# clientes que salen
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.14 -d 10.10.150.2 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.12 -d 10.10.151.18 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.14 -d 10.10.151.18 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.13 -d 10.10.154.19 -j ACCEPT
+	sleep 0.5
+
+	# established, related
+	# A
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.12 -d 10.10.150.2 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.12 -d 10.10.150.3 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.12 -d 10.10.150.4 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.13 -d 10.10.150.2 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.13 -d 10.10.150.3 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.13 -d 10.10.150.4 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sleep 0.5
+
+	# B
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.12 -d 10.10.151.6 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s1 -s 10.10.153.13 -d 10.10.151.6 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sleep 0.5
+
+	# D
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.153.20 -d 10.10.154.15 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sleep 0.5
+
+	# reject
+	sudo iptables -A FORWARD -i enp8s0 -j REJECT
+	sleep 0.5
+fi

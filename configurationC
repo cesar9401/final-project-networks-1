@@ -1,0 +1,46 @@
+#!/bin/bash
+# move me to /etc/network/if-up.d
+
+if [ $IFACE = "enp1s0" ]
+then
+	sleep 5
+	# 200.200.200.0/30
+	sudo ip route add 200.200.200.0/30 via 200.200.201.1 dev enp1s0
+	# 10.10.150.0/24
+	sudo ip route add 10.10.150.0/24 via 200.200.201.1 dev enp1s0
+	# 10.10.151.0/24
+	sudo ip route add 10.10.151.0/24 via 200.200.201.1 dev enp1s0
+fi
+
+if [ $IFACE = "enp7s0" ]
+then
+	sleep 5
+	# 200.200.204.0/30
+	sudo ip route add 200.200.204.0/30 via 200.200.202.2 dev enp7s0
+	# 10.10.153.0/24
+	sudo ip route add 10.10.153.0/24 via 200.200.202.2 dev enp7s0
+	# 10.10.154.0/24
+	sudo ip route add 10.10.154.0/24 via 200.200.202.2 dev enp7s0
+fi
+
+if [ $IFACE = "enp8s0" ]
+then
+	sleep 5
+	sudo iptables -F
+	sleep 0.5
+	# clientes que salen
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.7 -d 10.10.154.15 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.8 -d 10.10.154.15 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.9 -d 10.10.154.15 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.10 -d 10.10.154.15 -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.11 -d 10.10.154.15 -j ACCEPT
+	sleep 0.5
+	# established, related
+	# D
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.7 -d 10.10.154.16 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A FORWARD -i enp8s0 -s 10.10.152.7 -d 10.10.154.17 -m state --state ESTABLISHED,RELATED -j ACCEPT
+	sleep 0.5
+	# reject
+	sudo iptables -A FORWARD -i enp8s0 -j REJECT
+	sleep 0.5
+fi
