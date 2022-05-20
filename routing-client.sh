@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# move me to /etc/network/if-up.d/
+
 interface=$1
 file="/home/cesar/range.conf"
 
